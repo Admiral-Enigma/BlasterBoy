@@ -30,8 +30,22 @@ function love.keypressed( key, scancode, isrepeat )
 end
 
 function addRoom(x, y)
-    resetLastPos(x, y, direction)
-    table.insert( rooms, {x, y})
+    if hasRoom(x, y) == false then
+        resetLastPos(x, y, direction)
+        table.insert( rooms, {x, y})
+    end
+end
+
+function hasRoom(x, y)
+    local has = false
+    for _,v in ipairs(rooms) do
+        if v[1] == x then
+            if v[2] == y then
+                has = true
+            end
+        end
+    end
+    return has
 end
 
 function generateRoom()
