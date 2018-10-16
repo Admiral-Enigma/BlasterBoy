@@ -5,7 +5,6 @@ local ROOM_COUNT = 64
 local lastX = 50
 local lastY = 50
 local lastDir = 0
-local hasDrawn = false
 local rooms = {}
 local colliders = {}
 
