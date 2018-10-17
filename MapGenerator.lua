@@ -47,11 +47,43 @@ function MapGenerator:generateRooms()
     end
 end
 
+function MapGenerator:generateColliders()
+    self.colliders = {}
+    for _,v in ipairs(self.rooms) do
+        if self:hasRoom(v.x, v.y - CELL_SIZEY) == false then
+            -- north
+            local x, y = v.x, v.y - CELL_SIZEY
+            self:addCollider(x, y)
+        end
+        if self:hasRoom(v.x + CELL_SIZEX, v.y) == false then
+            -- east
+            local x, y = v.x + CELL_SIZEX, v.y
+            self:addCollider(x, y)
+        end
+        
+        if self:hasRoom(v.x, v.y + CELL_SIZEY) == false then
+            -- south
+            local x, y = v.x, v.y + CELL_SIZEY
+            self:addCollider(x, y)
+        end
+        
+        if self:hasRoom(v.x - CELL_SIZEX, v.y) == false then
+            -- west
+            local x, y = v.x - CELL_SIZEX, v.y
+            self:addCollider(x, y)
+        end
+    end
+end
+
 function MapGenerator:addRoom(x, y)
     if self:hasRoom(x, y) == false then
         self:resetLastPos(x, y, direction)
         table.insert(self.rooms,{x = x, y = y})
     end 
+end
+
+function MapGenerator:addCollider(x, y)
+    table.insert(self.colliders, {x = x, y = y})
 end
 
 function MapGenerator:hasRoom(x, y)
