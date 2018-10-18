@@ -1,8 +1,8 @@
 CELL_SIZEX = 32
 CELL_SIZEY = 32
 local ROOM_COUNT = 64
-local START_X = 50
-local START_Y = 50
+local START_X = 0
+local START_Y = 0
 
 local MapGenerator = {}
 MapGenerator.__index = MapGenerator
