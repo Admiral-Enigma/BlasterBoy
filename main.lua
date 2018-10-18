@@ -1,6 +1,6 @@
 -- Dependencies
 local Camera = require 'lib.hump.camera'
-
+Globals = require 'Globals'
 
 -- Objects
 local MapRenderer = require 'MapRenderer'
@@ -29,7 +29,6 @@ function love.load ()
 end
 
 function love.update (dt)
-    local scale = 4
     if love.keyboard.isDown('w') then
         player.y = player.y - player.speed * dt
     elseif love.keyboard.isDown('s') then
@@ -41,20 +40,23 @@ function love.update (dt)
     elseif love.keyboard.isDown('a') then
         player.x = player.x - player.speed * dt
     end
-    cam:lockX(player.x * scale + 8) -- times scale + half of player width
-    cam:lockY(player.y * scale + 8)
+    cam:lockX(player.x * Globals.scale + 8) -- times scale + half of player width
+    cam:lockY(player.y * Globals.scale + 8)
 end
 
 function love.draw ()
     cam:attach()
-    love.graphics.scale(4, 4)
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.circle("fill", 0, 0, 5)
+    love.graphics.scale(Globals.scale, Globals.scale)
+
     if drawCol then
         map:drawColliders()
     end
     map:drawMap()
 
+    love.graphics.setColor(255,0,144, 200)
+    love.graphics.circle("fill", 0, 0, 5)
+
+    love.graphics.setColor(255,255,255, 255)
     love.graphics.draw(player.sprite, player.x, player.y)
 
     cam:detach()
