@@ -21,7 +21,8 @@ function love.load ()
     map = MapRenderer:new()
     cam = Camera(0,0)
 
-    player = Player:new(64, 64)
+    local firstRoomCords = map:getFirstRoomCenter()
+    player = Player:new(firstRoomCords.x, firstRoomCords.y)
 
 
 

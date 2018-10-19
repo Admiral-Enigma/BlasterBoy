@@ -18,6 +18,7 @@ function MapRenderer:drawMap()
     end
 
 end
+
 function MapRenderer:drawColliders()
     for k,v in ipairs(self.mapGen.colliders) do
         love.graphics.setColor(255, 0, 0, 255)
@@ -25,6 +26,9 @@ function MapRenderer:drawColliders()
     end
 end
 
+function MapRenderer:getFirstRoomCenter()
+    return {x = self.mapGen.rooms[1].x + CELL_SIZEX / 2, y = self.mapGen.rooms[1].y + CELL_SIZEY / 2}
+end
 
 function MapRenderer:generateMap()
     self.mapGen:generateRooms()
