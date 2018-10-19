@@ -57,6 +57,7 @@ function love.keypressed( key, scancode, isrepeat )
         map:generateMap()
         local firstRoomCords = map:getFirstRoomCenter()
         player:setPosition(firstRoomCords.x, firstRoomCords.y)
+        world:update(player, player.x, player.y, player.width, player.height)
     end
 
     -- DEBUG
