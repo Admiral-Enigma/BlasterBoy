@@ -48,7 +48,7 @@ function MapGenerator:generateRooms()
 end
 
 function MapGenerator:generateColliders()
-    self.colliders = {}
+    self:resetColliders()
     for _,v in ipairs(self.rooms) do
         if self:hasRoom(v.x, v.y - CELL_SIZEY) == false then
             -- north
@@ -83,7 +83,9 @@ function MapGenerator:addRoom(x, y)
 end
 
 function MapGenerator:addCollider(x, y)
-    table.insert(self.colliders, {x = x, y = y})
+    local collider = {x = x, y = y, w = CELL_SIZEX, h = CELL_SIZEY}
+    table.insert(self.colliders, collider)
+    world:add(collider, collider.x, collider.y, collider.w, collider.h)
 end
 
 function MapGenerator:hasRoom(x, y)
@@ -103,6 +105,13 @@ function MapGenerator:clearVars()
     self.lastX = START_X
     self.lastY = START_Y
     self.lastDir = 0
+end
+
+function MapGenerator:resetColliders()
+    for k,v in ipairs(self.colliders) do
+        world:remove(v)
+    end
+    self.colliders = {}
 end
 
 function MapGenerator:resetLastPos(x, y, dir)
