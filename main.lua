@@ -8,13 +8,9 @@ local bump = require 'lib.bump'
 local MapRenderer = require 'MapRenderer'
 local map
 local cam
-
--- TEST
 local player
 
-
-
-
+-- Debug vars
 local drawCol = true
 
 function love.load () 
@@ -42,6 +38,7 @@ function love.draw ()
     if drawCol then
         map:drawColliders()
     end
+    
     map:drawMap()
 
     love.graphics.setColor(255,0,144, 200)
