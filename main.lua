@@ -7,11 +7,11 @@ local Player = require 'objects.Player'
 local MapRenderer = require 'MapRenderer'
 local map
 local cam
+
 -- TEST
 local player
 
--- Constants
-local CAM_ZOOM = 1
+
 
 
 local drawCol = true
@@ -23,9 +23,6 @@ function love.load ()
 
     local firstRoomCords = map:getFirstRoomCenter()
     player = Player:new(firstRoomCords.x, firstRoomCords.y)
-
-
-
 end
 
 function love.update (dt)
