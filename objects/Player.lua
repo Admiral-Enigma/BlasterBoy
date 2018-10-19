@@ -16,6 +16,11 @@ function Player:draw()
     love.graphics.draw(self.sprite, self.x, self.y)
 end
 
+function Player:setPosition(x, y)
+    self.x = x
+    self.y = y
+end
+
 function Player:update(dt)
     if love.keyboard.isDown('w') then
         self.y = self.y - WALKSPEED * dt

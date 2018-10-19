@@ -54,8 +54,20 @@ end
 function love.keypressed( key, scancode, isrepeat )
     if key == "r" then
         map:generateMap()
+        local firstRoomCords = map:getFirstRoomCenter()
+        player:setPosition(firstRoomCords.x, firstRoomCords.y)
     end
+
+    -- DEBUG
     if key == "p" then
         drawCol = not drawCol
+    end
+
+    if key == "z" then
+        if Globals.scale == 4 then
+            Globals.scale = 1
+        else
+            Globals.scale = 4
+        end
     end
 end
