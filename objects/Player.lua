@@ -8,6 +8,8 @@ function Player:new(x, y)
     ins.sprite = love.graphics.newImage('assets/happyboi.png')
     ins.x = x
     ins.y = y
+    ins.width = 16
+    ins.height = 16
     return ins
 end
 
@@ -22,16 +24,23 @@ function Player:setPosition(x, y)
 end
 
 function Player:update(dt)
+    
+    local dx, dy = 0, 0
     if love.keyboard.isDown('w') then
-        self.y = self.y - WALKSPEED * dt
+        dy = -WALKSPEED * dt
     elseif love.keyboard.isDown('s') then
-        self.y = self.y + WALKSPEED * dt
+        dy = WALKSPEED * dt
     end
 
     if love.keyboard.isDown('d') then
-        self.x = self.x + WALKSPEED * dt
+        dx = WALKSPEED * dt
     elseif love.keyboard.isDown('a') then
-        self.x = self.x - WALKSPEED * dt
+        dx = -WALKSPEED * dt
+    end
+
+    -- We moving
+    if dx ~= 0 or dy ~= 0 then
+        self.x, self.y, _, _ = world:move(self, self.x + dx, self.y + dy)
     end
 end
 

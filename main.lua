@@ -2,6 +2,7 @@
 local Camera = require 'lib.hump.camera'
 Globals = require 'Globals'
 local Player = require 'objects.Player'
+local bump = require 'lib.bump'
 
 -- Objects
 local MapRenderer = require 'MapRenderer'
@@ -18,11 +19,14 @@ local drawCol = true
 
 function love.load () 
     love.graphics.setDefaultFilter('nearest', 'nearest', 0)
+    
+    world = bump.newWorld()
     map = MapRenderer:new()
     cam = Camera(0,0)
 
     local firstRoomCords = map:getFirstRoomCenter()
     player = Player:new(firstRoomCords.x, firstRoomCords.y)
+    world:add(player, player.x, player.y, player.width, player.height)
 end
 
 function love.update (dt)
