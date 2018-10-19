@@ -8,4 +8,6 @@ Other:
 Asset Manager:
   ☐ Create basic class
   ☐ Create a scanning function
-  
+
+Player:
+  ✔ Move the test player into a seperate class @started(18-10-19 19:05) @done(18-10-19 19:10) @lasted(5m22s)
