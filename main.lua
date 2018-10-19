@@ -38,7 +38,7 @@ function love.draw ()
     if drawCol then
         map:drawColliders()
     end
-    
+
     map:drawMap()
 
     love.graphics.setColor(255,0,144, 200)
@@ -60,6 +60,10 @@ function love.keypressed( key, scancode, isrepeat )
     -- DEBUG
     if key == "p" then
         drawCol = not drawCol
+    end
+
+    if key == "escape" then
+        love.event.quit()
     end
 
     if key == "z" then
