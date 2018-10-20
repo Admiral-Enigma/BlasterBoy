@@ -5,6 +5,9 @@ Issues:
 Other:
   ✔ Added a Globals file @done(18-10-18 19:59)
 
+Enemies:
+  ✔ Move the test into a class @started(18-10-20 17:16) @done(18-10-20 17:21) @lasted(5m40s)
+
 Asset Manager:
   ☐ Create basic class
   ☐ Create a scanning function

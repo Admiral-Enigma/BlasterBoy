@@ -3,12 +3,15 @@ local Camera = require 'lib.hump.camera'
 Globals = require 'Globals'
 local Player = require 'objects.Player'
 local bump = require 'lib.bump'
+local Enemy = require 'objects.enemy'
 
 -- Objects
 local MapRenderer = require 'MapRenderer'
 local map
 local cam
 local player
+
+local enemy
 
 -- Debug vars
 local drawCol = true
@@ -19,14 +22,18 @@ function love.load ()
     world = bump.newWorld()
     map = MapRenderer:new()
     cam = Camera(0,0)
-
+    
     local firstRoomCords = map:getFirstRoomCenter()
     player = Player:new(firstRoomCords.x, firstRoomCords.y)
     world:add(player, player.x, player.y, player.width, player.height)
+
+    enemy = Enemy:new(player.x, player.y)
+    world:add(enemy, enemy.x, enemy.y, enemy.width, enemy.height)
 end
 
 function love.update (dt)
     player:update(dt)
+    enemy:update(dt)
     cam:lockX(player.x * Globals.scale + 8) -- times scale + half of player width
     cam:lockY(player.y * Globals.scale + 8)
 end
@@ -45,6 +52,7 @@ function love.draw ()
     love.graphics.circle("fill", 0, 0, 5)
 
     player:draw()
+    enemy:draw()
 
     cam:detach()
 end
