@@ -4,7 +4,7 @@ Timer = require "lib.hump.timer"
 Globals = require 'Globals'
 local Player = require 'objects.Player'
 local bump = require 'lib.bump'
-local Enemy = require 'objects.enemy'
+local Enemy = require 'objects.Enemy'
 
 -- Objects
 local MapRenderer = require 'MapRenderer'
