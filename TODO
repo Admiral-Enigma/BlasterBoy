@@ -7,10 +7,14 @@ Other:
 
 Enemies:
   ✔ Move the test into a class @started(18-10-20 17:16) @done(18-10-20 17:21) @lasted(5m40s)
+  ☐ Create a enemy manager
 
 Asset Manager:
   ☐ Create basic class
   ☐ Create a scanning function
+
+Map:
+  ☐ Make a "type" variable for each room
 
 Player:
   ✔ Move the test player into a seperate class @started(18-10-19 19:05) @done(18-10-19 19:10) @lasted(5m22s)
