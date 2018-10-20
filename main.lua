@@ -1,5 +1,6 @@
 -- Dependencies
 local Camera = require 'lib.hump.camera'
+Timer = require "lib.hump.timer"
 Globals = require 'Globals'
 local Player = require 'objects.Player'
 local bump = require 'lib.bump'
@@ -32,6 +33,7 @@ function love.load ()
 end
 
 function love.update (dt)
+    Timer.update(dt)
     player:update(dt)
     enemy:update(dt)
     cam:lockX(player.x * Globals.scale + 8) -- times scale + half of player width
