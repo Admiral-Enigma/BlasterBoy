@@ -12,6 +12,7 @@ function Enemy:new(x, y)
     ins.width = 16
     ins.height = 16
     ins.angle = 1
+    ins.stopped = true
     Timer.every(MOVEMENT_TIMER, function() ins:newDirection() end)    
     return ins
 end
@@ -27,10 +28,14 @@ function Enemy:update(dt)
     --enemy.y = enemy.y + math.sin(enemy.angle) * dt * enemy.speed
     dx = math.cos(self.angle) * WALKSPEED * dt 
     dy = math.sin(self.angle) * WALKSPEED * dt 
-    self.x, self.y, _, _ = world:move(self, self.x + dx, self.y + dy)
+
+    if not self.stopped then
+        self.x, self.y, _, _ = world:move(self, self.x + dx, self.y + dy)
+    end
 end
 
 function Enemy:newDirection()
+    self.stopped = not self.stopped
     local direction = love.math.random(1, 4)
     self.angle = math.deg(direction * 90)
 end
