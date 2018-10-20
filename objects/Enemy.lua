@@ -37,7 +37,12 @@ end
 function Enemy:newDirection()
     self.stopped = not self.stopped
     local direction = love.math.random(1, 4)
-    self.angle = math.deg(direction * 90)
+
+    if direction == 1 then
+        self.angle = math.deg(0)
+    else
+        self.angle = math.deg(direction * 90)
+    end
 end
 
 return Enemy
