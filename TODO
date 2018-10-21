@@ -14,7 +14,7 @@ Asset Manager:
   ☐ Create a scanning function
 
 Map:
-  ☐ Make a "type" variable for each room
+  ☐ Generate areas for each map
 
 Player:
   ✔ Move the test player into a seperate class @started(18-10-19 19:05) @done(18-10-19 19:10) @lasted(5m22s)
