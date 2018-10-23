@@ -11,6 +11,7 @@ function MapGenerator:new()
     local ins = setmetatable({}, self)
     ins.rooms = {}
     ins.colliders = {}
+    ins.areas = {}
     ins.lastX = START_X
     ins.lastY = START_Y
     ins.lastDir = 0
@@ -73,6 +74,12 @@ function MapGenerator:generateColliders()
             self:addCollider(x, y)
         end
     end
+end
+
+-- Squares for now
+function MapGenerator:generateAreas()
+    self.areas = {}
+    
 end
 
 function MapGenerator:addRoom(x, y)
