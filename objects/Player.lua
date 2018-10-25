@@ -2,7 +2,8 @@ local WALKSPEED = 800
 local FRICTION = 9
 local MAX_SPEED = 900
 local CROSSHAIR_ORBIT = 30
-
+local Bullet = require "objects.Bullet"
+local bullet = nil
 local Player = {}
 Player.__index = Player
 
@@ -16,6 +17,7 @@ function Player:new(x, y)
     ins.vy = 0
     ins.aimX = x
     ins.aimY = y
+    ins.aimAngle = 1
     ins.width = 16
     ins.height = 16
     return ins
@@ -28,7 +30,6 @@ function Player:draw()
     -- Crosshair
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.crosshair, self.aimX, self.aimY)
-    --love.graphics.circle("fill", self.aimX, self.aimY, 5)
 end
 
 function Player:setPosition(x, y)
@@ -39,18 +40,18 @@ end
 
 function Player:update(dt)
     local angle = 0
-    
 
-    local cX,cY = Globals.Camera:worldCoords(love.mouse.getPosition())
-    cX = cX / Globals.scale
-    cY = cY / Globals.scale
 
-    angle = math.atan2(self.y + 8 - cY ,self.x + 8 - cX)
+    local mouseX,mouseY = Globals.Camera:worldCoords(love.mouse.getPosition())
+    mouseX = mouseX / Globals.scale
+    mouseY = mouseY / Globals.scale
+
+    angle = math.atan2(self.y + 8 - mouseY ,self.x + 8 - mouseX)
     angle = angle + math.pi
+    self.aimAngle = angle
 
     self.aimX = CROSSHAIR_ORBIT * math.cos(angle) + self.x
     self.aimY = CROSSHAIR_ORBIT * math.sin(angle) + self.y
-
 
     -- We moving
     if self.vx ~= 0 or self.vy ~= 0 then
@@ -74,5 +75,10 @@ function Player:update(dt)
     end
 end
 
-function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
+function Player:mousepressed(x, y, button, istouch, presses)
+    if button == 1 then
+        Globals.BulletsManager:createBullet(self.x + self.width / 2, self.y + self.height / 2, self.aimAngle)
+    end
+end
+
 return Player

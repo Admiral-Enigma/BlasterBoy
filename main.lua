@@ -5,6 +5,7 @@ Globals = require 'Globals'
 local Player = require 'objects.Player'
 local bump = require 'lib.bump'
 local Enemy = require 'objects.Enemy'
+local BulletsManager = require 'objects.BulletsManager'
 
 -- Objects
 local MapRenderer = require 'MapRenderer'
@@ -22,6 +23,7 @@ function love.load ()
     world = bump.newWorld()
     map = MapRenderer:new()
     Globals.Camera = Camera(0,0)
+    Globals.BulletsManager = BulletsManager:new()
     
     local firstRoomCords = map:getFirstRoomCenter()
     player = Player:new(firstRoomCords.x, firstRoomCords.y)
@@ -35,6 +37,7 @@ function love.update (dt)
     Timer.update(dt)
     player:update(dt)
     enemy:update(dt)
+    Globals.BulletsManager:update(dt)
     Globals.Camera:lockX(player.x * Globals.scale + 8) -- times scale + half of player width
     Globals.Camera:lockY(player.y * Globals.scale + 8)
 end
@@ -51,11 +54,14 @@ function love.draw ()
 
     love.graphics.setColor(255,0,144, 200)
     love.graphics.circle("fill", 0, 0, 5)
-
     player:draw()
     enemy:draw()
-
+    Globals.BulletsManager:draw()
     Globals.Camera:detach()
+end
+
+function love.mousepressed(x, y, button, istouch, presses)
+    player:mousepressed(x, y, button, istouch, presses)
 end
 
 function love.keypressed( key, scancode, isrepeat )
