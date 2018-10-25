@@ -9,7 +9,6 @@ local Enemy = require 'objects.Enemy'
 -- Objects
 local MapRenderer = require 'MapRenderer'
 local map
-local cam
 local player
 
 local enemy
@@ -22,7 +21,7 @@ function love.load ()
     
     world = bump.newWorld()
     map = MapRenderer:new()
-    cam = Camera(0,0)
+    Globals.Camera = Camera(0,0)
     
     local firstRoomCords = map:getFirstRoomCenter()
     player = Player:new(firstRoomCords.x, firstRoomCords.y)
@@ -36,12 +35,12 @@ function love.update (dt)
     Timer.update(dt)
     player:update(dt)
     enemy:update(dt)
-    cam:lockX(player.x * Globals.scale + 8) -- times scale + half of player width
-    cam:lockY(player.y * Globals.scale + 8)
+    Globals.Camera:lockX(player.x * Globals.scale + 8) -- times scale + half of player width
+    Globals.Camera:lockY(player.y * Globals.scale + 8)
 end
 
 function love.draw ()
-    cam:attach()
+    Globals.Camera:attach()
     love.graphics.scale(Globals.scale, Globals.scale)
 
     if drawCol then
@@ -56,7 +55,7 @@ function love.draw ()
     player:draw()
     enemy:draw()
 
-    cam:detach()
+    Globals.Camera:detach()
 end
 
 function love.keypressed( key, scancode, isrepeat )

@@ -1,6 +1,7 @@
 local WALKSPEED = 800
 local FRICTION = 9
 local MAX_SPEED = 900
+local CROSSHAIR_ORBIT = 20
 
 local Player = {}
 Player.__index = Player
@@ -12,6 +13,8 @@ function Player:new(x, y)
     ins.y = y
     ins.vx = 0
     ins.vy = 0
+    ins.aimX = x
+    ins.aimY = y
     ins.width = 16
     ins.height = 16
     return ins
@@ -20,6 +23,10 @@ end
 function Player:draw()
     love.graphics.setColor(255,255,255, 255)
     love.graphics.draw(self.sprite, self.x, self.y)
+    
+    -- Crosshair
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.circle("fill", self.aimX, self.aimY, 5)
 end
 
 function Player:setPosition(x, y)
@@ -28,19 +35,19 @@ function Player:setPosition(x, y)
 end
 
 function Player:update(dt)
-    --[[
-    local dx, dy = 0, 0
-    if love.keyboard.isDown('w') then
-        dy = -WALKSPEED * dt
-    elseif love.keyboard.isDown('s') then
-        dy = WALKSPEED * dt
-    end
+    local angle = 0
+    
 
-    if love.keyboard.isDown('d') then
-        dx = WALKSPEED * dt
-    elseif love.keyboard.isDown('a') then
-        dx = -WALKSPEED * dt
-    end]]
+    local cX,cY = Globals.Camera:worldCoords(love.mouse.getPosition())
+    cX = cX / Globals.scale
+    cY = cY / Globals.scale
+    
+    angle = math.atan2(self.y + 8 - cY ,self.x + 8 - cX)
+    angle = angle + math.pi
+
+    self.aimX = CROSSHAIR_ORBIT * math.cos(angle) + self.x + 8
+    self.aimY = CROSSHAIR_ORBIT * math.sin(angle) + self.y + 8
+
 
     -- We moving
     if self.vx ~= 0 or self.vy ~= 0 then
@@ -64,4 +71,5 @@ function Player:update(dt)
     end
 end
 
+function math.dist(x1,y1, x2,y2) return ((x2-x1)^2+(y2-y1)^2)^0.5 end
 return Player
