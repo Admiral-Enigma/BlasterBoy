@@ -1,7 +1,7 @@
 local WALKSPEED = 800
 local FRICTION = 9
 local MAX_SPEED = 900
-local CROSSHAIR_ORBIT = 20
+local CROSSHAIR_ORBIT = 30
 
 local Player = {}
 Player.__index = Player
@@ -9,6 +9,7 @@ Player.__index = Player
 function Player:new(x, y)
     local ins = setmetatable({}, self)
     ins.sprite = love.graphics.newImage('assets/happyboi.png')
+    ins.crosshair = love.graphics.newImage('assets/crosshair.png')
     ins.x = x
     ins.y = y
     ins.vx = 0
@@ -26,7 +27,8 @@ function Player:draw()
     
     -- Crosshair
     love.graphics.setColor(255, 255, 255)
-    love.graphics.circle("fill", self.aimX, self.aimY, 5)
+    love.graphics.draw(self.crosshair, self.aimX, self.aimY)
+    --love.graphics.circle("fill", self.aimX, self.aimY, 5)
 end
 
 function Player:setPosition(x, y)
@@ -41,12 +43,12 @@ function Player:update(dt)
     local cX,cY = Globals.Camera:worldCoords(love.mouse.getPosition())
     cX = cX / Globals.scale
     cY = cY / Globals.scale
-    
+
     angle = math.atan2(self.y + 8 - cY ,self.x + 8 - cX)
     angle = angle + math.pi
 
-    self.aimX = CROSSHAIR_ORBIT * math.cos(angle) + self.x + 8
-    self.aimY = CROSSHAIR_ORBIT * math.sin(angle) + self.y + 8
+    self.aimX = CROSSHAIR_ORBIT * math.cos(angle) + self.x
+    self.aimY = CROSSHAIR_ORBIT * math.sin(angle) + self.y
 
 
     -- We moving
