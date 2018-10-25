@@ -34,6 +34,7 @@ end
 function Player:setPosition(x, y)
     self.x = x
     self.y = y
+    world:update(self, self.x, self.y, self.width, self.height)
 end
 
 function Player:update(dt)
