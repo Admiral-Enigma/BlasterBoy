@@ -2,6 +2,10 @@ local WALKSPEED = 800
 local FRICTION = 9
 local MAX_SPEED = 900
 local CROSSHAIR_ORBIT = 30
+local CAMERA_OFFSET = 15
+local CAMERA_CUTOFF = 30
+
+
 local Bullet = require "objects.Bullet"
 local bullet = nil
 local Player = {}
@@ -20,6 +24,8 @@ function Player:new(x, y)
     ins.aimAngle = 1
     ins.width = 16
     ins.height = 16
+    ins.camX = ins.x
+    ins.camY = ins.y
     return ins
 end
 
@@ -50,8 +56,23 @@ function Player:update(dt)
     angle = angle + math.pi
     self.aimAngle = angle
 
-    self.aimX = CROSSHAIR_ORBIT * math.cos(angle) + self.x
-    self.aimY = CROSSHAIR_ORBIT * math.sin(angle) + self.y
+    --self.aimX = CROSSHAIR_ORBIT * math.cos(angle) + self.x
+    --self.aimY = CROSSHAIR_ORBIT * math.sin(angle) + self.y]]
+
+    local distFromMouse = distance(self.x, self.y, mouseX, mouseY)
+    local r = (distFromMouse / 2 - CAMERA_OFFSET) / distFromMouse
+    print(distFromMouse)
+
+    if distFromMouse < CAMERA_CUTOFF then
+        self.camX = self.x
+        self.camY = self.y
+    else 
+        self.camX = r * mouseX + (1 - r)  * self.x
+        self.camY = r * mouseY + (1 - r)  * self.y
+    end
+
+    self.aimX = mouseX
+    self.aimY = mouseY
 
     -- We moving
     if self.vx ~= 0 or self.vy ~= 0 then
@@ -80,5 +101,11 @@ function Player:mousepressed(x, y, button, istouch, presses)
         Globals.BulletsManager:createBullet(self.x + self.width / 2, self.y + self.height / 2, self.aimAngle)
     end
 end
+
+function distance ( x1, y1, x2, y2 )
+    local dx = x1 - x2
+    local dy = y1 - y2
+    return math.sqrt ( dx * dx + dy * dy )
+  end
 
 return Player

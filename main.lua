@@ -38,8 +38,8 @@ function love.update (dt)
     player:update(dt)
     enemy:update(dt)
     Globals.BulletsManager:update(dt)
-    Globals.Camera:lockX(player.x * Globals.scale + 8) -- times scale + half of player width
-    Globals.Camera:lockY(player.y * Globals.scale + 8)
+    Globals.Camera:lockX(player.camX * Globals.scale + 8) -- times scale + half of player width
+    Globals.Camera:lockY(player.camY * Globals.scale + 8)
 end
 
 function love.draw ()
