@@ -34,7 +34,7 @@ function Player:draw()
     
     -- Crosshair
     love.graphics.setColor(255, 255, 255)
-    love.graphics.draw(self.crosshair, self.aimX, self.aimY)
+    love.graphics.draw(self.crosshair, self.aimX - self.crosshair:getWidth() / 2, self.aimY - self.crosshair:getHeight() / 2)
 end
 
 function Player:setPosition(x, y)
