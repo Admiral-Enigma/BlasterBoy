@@ -54,8 +54,8 @@ function love.draw ()
 
     love.graphics.setColor(255,0,144, 200)
     love.graphics.circle("fill", 0, 0, 5)
-    player:draw()
     enemy:draw()
+    player:draw()
     Globals.BulletsManager:draw()
     Globals.Camera:detach()
 end
