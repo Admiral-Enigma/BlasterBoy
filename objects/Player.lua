@@ -1,7 +1,6 @@
 local WALKSPEED = 800
 local FRICTION = 9
 local MAX_SPEED = 900
-local CROSSHAIR_ORBIT = 30
 local CAMERA_OFFSET = 15
 local CAMERA_CUTOFF = 30
 
