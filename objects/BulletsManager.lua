@@ -18,6 +18,13 @@ function BulletsManager:update(dt)
     for k,v in ipairs(self.bullets) do
         v:update(dt)
     end
+
+    for k,v in ipairs(self.bullets) do
+        if v.dead == true then
+            world:remove(v)
+            table.remove(self.bullets, k)
+        end
+    end
 end
 
 function BulletsManager:draw()

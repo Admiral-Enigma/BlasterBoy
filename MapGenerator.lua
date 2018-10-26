@@ -90,7 +90,7 @@ function MapGenerator:addRoom(x, y)
 end
 
 function MapGenerator:addCollider(x, y)
-    local collider = {x = x, y = y, w = CELL_SIZEX, h = CELL_SIZEY}
+    local collider = {x = x, y = y, w = CELL_SIZEX, h = CELL_SIZEY, typeID = 'wall'}
     table.insert(self.colliders, collider)
     world:add(collider, collider.x, collider.y, collider.w, collider.h)
 end

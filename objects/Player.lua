@@ -25,6 +25,7 @@ function Player:new(x, y)
     ins.height = 16
     ins.camX = ins.x
     ins.camY = ins.y
+    ins.typeID = 'player'
     return ins
 end
 
@@ -57,7 +58,6 @@ function Player:update(dt)
 
     local distFromMouse = distance(self.x, self.y, mouseX, mouseY)
     local r = (distFromMouse / 2 - CAMERA_OFFSET) / distFromMouse
-    print(distFromMouse)
 
     if distFromMouse < CAMERA_CUTOFF then
         self.camX = self.x
@@ -72,7 +72,7 @@ function Player:update(dt)
 
     -- We moving
     if self.vx ~= 0 or self.vy ~= 0 then
-        self.x, self.y, _, _ = world:move(self, self.x + self.vx * dt, self.y + self.vy * dt)
+        self.x, self.y, _, _ = world:move(self, self.x + self.vx * dt, self.y + self.vy * dt, playerFilter)
     end
 
     self.vx = self.vx * (1 - math.min(dt * FRICTION, 1))
@@ -90,6 +90,11 @@ function Player:update(dt)
     elseif love.keyboard.isDown('a') and self.vx > -MAX_SPEED then
         self.vx = self.vx - WALKSPEED * dt
     end
+end
+
+playerFilter = function(item, other)
+    if other.typeID == 'bullet' then return 'cross' 
+    else return 'slide' end
 end
 
 function Player:mousepressed(x, y, button, istouch, presses)
