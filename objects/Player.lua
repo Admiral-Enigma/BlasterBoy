@@ -55,9 +55,6 @@ function Player:update(dt)
     angle = angle + math.pi
     self.aimAngle = angle
 
-    --self.aimX = CROSSHAIR_ORBIT * math.cos(angle) + self.x
-    --self.aimY = CROSSHAIR_ORBIT * math.sin(angle) + self.y]]
-
     local distFromMouse = distance(self.x, self.y, mouseX, mouseY)
     local r = (distFromMouse / 2 - CAMERA_OFFSET) / distFromMouse
     print(distFromMouse)
