@@ -1,8 +1,6 @@
 local WALKSPEED = 800
 local FRICTION = 9
 local MAX_SPEED = 900
-local CAMERA_OFFSET = 15
-local CAMERA_CUTOFF = 30
 
 
 local Bullet = require "objects.Bullet"
@@ -57,15 +55,10 @@ function Player:update(dt)
     self.aimAngle = angle
 
     local distFromMouse = distance(self.x, self.y, mouseX, mouseY)
-    local r = (distFromMouse / 2 - CAMERA_OFFSET) / distFromMouse
+    local r = (distFromMouse / 2) / distFromMouse
 
-    if distFromMouse < CAMERA_CUTOFF then
-        self.camX = self.x
-        self.camY = self.y
-    else 
-        self.camX = r * mouseX + (1 - r)  * self.x
-        self.camY = r * mouseY + (1 - r)  * self.y
-    end
+    self.camX = r * mouseX + (1 - r)  * self.x
+    self.camY = r * mouseY + (1 - r)  * self.y
 
     self.aimX = mouseX
     self.aimY = mouseY
