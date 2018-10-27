@@ -34,6 +34,8 @@ function Player:draw()
     -- Crosshair
     love.graphics.setColor(255, 255, 255)
     love.graphics.draw(self.crosshair, self.aimX - self.crosshair:getWidth() / 2, self.aimY - self.crosshair:getHeight() / 2)
+
+    love.graphics.circle("fill", self.camX, self.camY, 5)
 end
 
 function Player:setPosition(x, y)
@@ -57,8 +59,8 @@ function Player:update(dt)
     local distFromMouse = distance(self.x, self.y, mouseX, mouseY)
     local r = (distFromMouse / 2) / distFromMouse
 
-    self.camX = r * mouseX + (1 - r)  * self.x
-    self.camY = r * mouseY + (1 - r)  * self.y
+    self.camX = r * mouseX + (1 - r)  * (self.x + self.width / 2)
+    self.camY = r * mouseY + (1 - r)  * (self.y + self.height / 2)
 
     self.aimX = mouseX
     self.aimY = mouseY
