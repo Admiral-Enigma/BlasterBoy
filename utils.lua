@@ -8,5 +8,8 @@ function drawDebug()
     local str = string.format("Estimated amount of texture memory used: %.2f KB", stats.texturememory / 1024)
     love.graphics.print(str, 10, 15 * 4)
     love.graphics.print("Images loaded: "..tostring(stats.images), 10, 15 * 5)
+end
 
+function mean(a, b, c)
+    return (a + b + c) / 3
 end
