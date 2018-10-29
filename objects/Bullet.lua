@@ -10,7 +10,7 @@ function Bullet:new(x, y, angle)
     ins.angle = angle
     ins.radius = 4
     ins.typeID = "bullet"
-    ins.dead = false
+    ins.toBeRemoved = false
     world:add(ins, ins.x, ins.y, ins.radius * 2, ins.radius * 2)
     return ins
 end
@@ -36,7 +36,7 @@ function Bullet:update(dt)
         local other = cols[i].other
         print(other)
         if other.typeID == 'wall' then
-            self.dead = true
+            self.toBeRemoved = true
         end
         print('collided with ' .. tostring(cols[i].other))
     end

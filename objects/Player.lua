@@ -94,7 +94,7 @@ end
 
 function Player:mousepressed(x, y, button, istouch, presses)
     if button == 1 then
-        Globals.BulletsManager:createBullet(self.x + self.width / 2, self.y + self.height / 2, self.aimAngle)
+        Globals.EntityFactory:createEntity("Bullet", self.x + self.width / 2, self.y + self.height / 2, self.aimAngle)
     end
 end
 
