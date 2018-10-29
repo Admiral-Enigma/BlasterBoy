@@ -12,7 +12,6 @@ end
 
 function EntityFactory:createEntity(template, ...)
     local entity
-    print(entityTemplates[template])
     entity = entityTemplates[template]:new(...)
     table.insert( self.pool, entity)
     return entity
