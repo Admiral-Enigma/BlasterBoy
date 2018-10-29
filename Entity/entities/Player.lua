@@ -3,8 +3,6 @@ local FRICTION = 9
 local MAX_SPEED = 900
 
 
-local Bullet = require "objects.Bullet"
-local bullet = nil
 local Player = {}
 Player.__index = Player
 

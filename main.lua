@@ -2,10 +2,10 @@
 local Camera = require 'lib.hump.camera'
 Timer = require "lib.hump.timer"
 Globals = require 'Globals'
-local Player = require 'objects.Player'
+local Player = require 'Entity.entities.Player'
 local bump = require 'lib.bump'
-local Enemy = require 'objects.Enemy'
-local EntityFactory = require 'Entities.EntityFactory'
+local Enemy = require 'Entity.entities.Enemy'
+local EntityFactory = require 'Entity.EntityFactory'
 
 -- Objects
 local MapRenderer = require 'MapRenderer'

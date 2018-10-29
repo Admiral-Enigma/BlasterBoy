@@ -1,7 +1,7 @@
 local EntityFactory = {}
 EntityFactory.__index = EntityFactory
 
-local entityTemplates = require 'Entities.EntityTemplates'
+local entityTemplates = require 'Entity.EntityTemplates'
 
 function EntityFactory:new()
     local ins = setmetatable({}, self)

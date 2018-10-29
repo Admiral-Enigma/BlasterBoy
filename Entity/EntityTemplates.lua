@@ -1,6 +1,6 @@
 local entityTemplates = {}
 
-local Bullet = require 'objects.Bullet'
+local Bullet = require 'Entity.entities.Bullet'
 
 entityTemplates["Bullet"] = Bullet
 
