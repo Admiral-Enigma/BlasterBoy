@@ -52,7 +52,7 @@ function love.draw()
     Globals.EntityFactory:draw()
     player:draw()
     Globals.Camera:detach()
-    drawDebug()
+    if drawCol then drawDebug() end
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
