@@ -2,6 +2,7 @@ local WALKSPEED = 800
 local FRICTION = 9
 local MAX_SPEED = 900
 
+local lume = require "lib.lume"
 
 local Player = {}
 Player.__index = Player
@@ -47,16 +48,10 @@ function Player:update(dt)
     local mouseX,mouseY = Globals.Camera:worldCoords(love.mouse.getPosition())
     mouseX = mouseX / Globals.scale
     mouseY = mouseY / Globals.scale
-
-    angle = math.atan2(self.y + 8 - mouseY ,self.x + 8 - mouseX)
-    angle = angle + math.pi
-    self.aimAngle = angle
-
-    local distFromMouse = distance(self.x, self.y, mouseX, mouseY)
-    local r = (distFromMouse / 2) / distFromMouse
-
-    self.camX = r * mouseX + (1 - r)  * (self.x + self.width / 2)
-    self.camY = r * mouseY + (1 - r)  * (self.y + self.height / 2)
+    local tempCamX = mean(self.x, self.x, mouseX)
+    local tempCamY = mean(self.y, self.y, mouseY)
+    self.camX = lume.lerp(self.camX, tempCamX, 0.1)
+    self.camY = lume.lerp(self.camY, tempCamY, 0.1)
 
     self.aimX = mouseX
     self.aimY = mouseY
