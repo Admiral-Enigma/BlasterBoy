@@ -58,6 +58,8 @@ function love.draw ()
     player:draw()
     Globals.EntityFactory:draw()
     Globals.Camera:detach()
+    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
+    love.graphics.print("Entities: "..tostring(Globals.EntityFactory.count), 10, 20)
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
