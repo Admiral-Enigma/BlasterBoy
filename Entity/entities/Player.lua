@@ -48,6 +48,11 @@ function Player:update(dt)
     local mouseX,mouseY = Globals.Camera:worldCoords(love.mouse.getPosition())
     mouseX = mouseX / Globals.scale
     mouseY = mouseY / Globals.scale
+    
+    angle = math.atan2(self.y + 8 - mouseY ,self.x + 8 - mouseX) 
+    angle = angle + math.pi 
+    self.aimAngle = angle 
+
     local tempCamX = mean(self.x, self.x, mouseX)
     local tempCamY = mean(self.y, self.y, mouseY)
     self.camX = lume.lerp(self.camX, tempCamX, 0.1)
