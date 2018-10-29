@@ -49,8 +49,8 @@ function love.draw()
     end
 
     map:drawMap()
-    player:draw()
     Globals.EntityFactory:draw()
+    player:draw()
     Globals.Camera:detach()
     drawDebug()
 end
