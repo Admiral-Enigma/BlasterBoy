@@ -15,6 +15,7 @@ function EntityFactory:createEntity(template, ...)
     print(entityTemplates[template])
     entity = entityTemplates[template]:new(...)
     table.insert( self.pool, entity)
+    return entity
 end
 
 function EntityFactory:update(dt)

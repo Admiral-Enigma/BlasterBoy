@@ -1,10 +1,10 @@
 -- Dependencies
 local Camera = require 'lib.hump.camera'
+require 'utils'
 Timer = require "lib.hump.timer"
 Globals = require 'Globals'
 local Player = require 'Entity.entities.Player'
 local bump = require 'lib.bump'
-local Enemy = require 'Entity.entities.Enemy'
 local EntityFactory = require 'Entity.EntityFactory'
 
 -- Objects
@@ -12,12 +12,11 @@ local MapRenderer = require 'MapRenderer'
 local map
 local player
 
-local enemy
 
 -- Debug vars
 local drawCol = true
 
-function love.load () 
+function love.load() 
     love.graphics.setDefaultFilter('nearest', 'nearest', 0)
     
     world = bump.newWorld()
@@ -29,20 +28,19 @@ function love.load ()
     player = Player:new(firstRoomCords.x, firstRoomCords.y)
     world:add(player, player.x, player.y, player.width, player.height)
 
-    enemy = Enemy:new(player.x, player.y)
+    local enemy = Globals.EntityFactory:createEntity("Enemy", player.x, player.y)
     world:add(enemy, enemy.x, enemy.y, enemy.width, enemy.height)
 end
 
-function love.update (dt)
+function love.update(dt)
     Timer.update(dt)
     player:update(dt)
-    enemy:update(dt)
     Globals.EntityFactory:update(dt)
     Globals.Camera:lockX(player.camX * Globals.scale + 8) -- times scale + half of player width
     Globals.Camera:lockY(player.camY * Globals.scale + 8)
 end
 
-function love.draw ()
+function love.draw()
     Globals.Camera:attach()
     love.graphics.scale(Globals.scale, Globals.scale)
 
@@ -51,15 +49,10 @@ function love.draw ()
     end
 
     map:drawMap()
-
-    love.graphics.setColor(255,0,144, 200)
-    love.graphics.circle("fill", 0, 0, 5)
-    enemy:draw()
     player:draw()
     Globals.EntityFactory:draw()
     Globals.Camera:detach()
-    love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, 10)
-    love.graphics.print("Entities: "..tostring(Globals.EntityFactory.count), 10, 20)
+    drawDebug()
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
