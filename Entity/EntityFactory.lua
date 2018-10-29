@@ -15,7 +15,6 @@ function EntityFactory:createEntity(template, ...)
     print(entityTemplates[template])
     entity = entityTemplates[template]:new(...)
     table.insert( self.pool, entity)
-    self.count = self.count + 1
 end
 
 function EntityFactory:update(dt)
@@ -26,6 +25,7 @@ function EntityFactory:update(dt)
             v:update(dt)
         end
     end
+    self.count = #self.pool
 end
 
 function EntityFactory:draw()
