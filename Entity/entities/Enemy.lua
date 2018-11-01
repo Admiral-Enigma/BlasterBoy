@@ -13,6 +13,7 @@ function Enemy:new(x, y)
     ins.height = 16
     ins.angle = 1
     ins.stopped = true
+    ins.typeID = 'enemy'
     Timer.every(MOVEMENT_TIMER, function() ins:newDirection() end)    
     return ins
 end
@@ -22,6 +23,12 @@ function Enemy:draw()
     love.graphics.draw(self.sprite, self.x, self.y)
 end
 
+enemyFilter = function(item, other)
+    if other.typeID == 'bullet' then return 'cross' 
+    else return 'slide' end
+end
+
+
 function Enemy:update(dt)
     local dx, dy = 0, 0
     --enemy.x = enemy.x + math.cos(enemy.angle) * dt * enemy.speed
@@ -30,7 +37,7 @@ function Enemy:update(dt)
     dy = math.sin(self.angle) * WALKSPEED * dt 
 
     if not self.stopped then
-        self.x, self.y, _, _ = world:move(self, self.x + dx, self.y + dy)
+        self.x, self.y, _, _ = world:move(self, self.x + dx, self.y + dy, enemyFilter)
     end
 end
 

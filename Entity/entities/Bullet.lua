@@ -22,6 +22,7 @@ end
 
 local bulletFilter = function(item, other)
     if other.typeID == 'player' then return 'cross'
+    elseif other.typeID == 'enemy' then return 'cross'
     elseif other.typeID == 'wall' then return 'cross' end
 end
 
@@ -36,6 +37,8 @@ function Bullet:update(dt)
         local other = cols[i].other
         print(other)
         if other.typeID == 'wall' then
+            self.toBeRemoved = true
+        elseif other.typeID == "enemy" then
             self.toBeRemoved = true
         end
         print('collided with ' .. tostring(cols[i].other))
