@@ -36,9 +36,7 @@ function Bullet:update(dt)
     for i=1,len do
         local other = cols[i].other
         print(other)
-        if other.typeID == 'wall' then
-            self.toBeRemoved = true
-        elseif other.typeID == "enemy" then
+        if other.typeID == 'wall' or other.typeID == "enemy" then
             self.toBeRemoved = true
         end
         print('collided with ' .. tostring(cols[i].other))
