@@ -79,7 +79,16 @@ end
 -- Squares for now
 function MapGenerator:generateAreas()
     self.areas = {}
-    
+    for k,v in ipairs(self.rooms) do 
+        if self:canHaveArea(v.x, v.y) then
+            table.insert( self.areas, {x = v.x, y = v.y})
+        end
+    end
+
+    for _,v in ipairs(self.areas) do
+        local enemy = Globals.EntityFactory:createEntity("Enemy", v.x, v.y)
+        world:add(enemy, enemy.x, enemy.y, enemy.width, enemy.height)
+    end
 end
 
 function MapGenerator:addRoom(x, y)
@@ -105,6 +114,23 @@ function MapGenerator:hasRoom(x, y)
         end
     end
     return has
+end
+
+function MapGenerator:canHaveArea(x, y)
+    local can = false
+    if self:hasRoom(x, y) and self:hasRoom(x + CELL_SIZEX, y) and self:hasRoom(x, y + CELL_SIZEY) and self:hasRoom(x + CELL_SIZEX, y + CELL_SIZEY) then
+        can = true
+        for _,v in ipairs(self.areas) do
+            if v.x == x and v.y == y then
+                can = false
+            end
+            if v.x + CELL_SIZEX == x or v.x - CELL_SIZEX == x or v.y + CELL_SIZEY == y or v.y - CELL_SIZEY == y then
+                print("banan")
+                can = false
+            end
+        end
+    end
+    return can
 end
 
 function MapGenerator:clearVars()

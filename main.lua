@@ -20,16 +20,15 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest', 0)
     
     world = bump.newWorld()
-    map = MapRenderer:new()
     Globals.Camera = Camera(0,0)
     Globals.EntityFactory = EntityFactory:new()
+    map = MapRenderer:new()
     
     local firstRoomCords = map:getFirstRoomCenter()
     player = Player:new(firstRoomCords.x, firstRoomCords.y)
     world:add(player, player.x, player.y, player.width, player.height)
 
-    local enemy = Globals.EntityFactory:createEntity("Enemy", player.x, player.y)
-    world:add(enemy, enemy.x, enemy.y, enemy.width, enemy.height)
+
 end
 
 function love.update(dt)
