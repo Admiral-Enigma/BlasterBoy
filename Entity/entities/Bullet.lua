@@ -16,7 +16,7 @@ function Bullet:new(x, y, angle)
 end
 
 function Bullet:draw()
-    love.graphics.setColor(0, 255, 0)
+    love.graphics.setColor(255, 0.5, 0)
     love.graphics.circle('fill', self.x, self.y, 4)
 end
 
