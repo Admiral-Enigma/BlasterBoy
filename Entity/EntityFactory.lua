@@ -34,4 +34,8 @@ function EntityFactory:draw()
     end
 end
 
+function EntityFactory:clear()
+    self.pool = {}
+end
+
 return EntityFactory

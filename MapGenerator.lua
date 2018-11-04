@@ -138,6 +138,7 @@ function MapGenerator:clearVars()
     self.lastX = START_X
     self.lastY = START_Y
     self.lastDir = 0
+    Globals.EntityFactory:clear()
 end
 
 function MapGenerator:resetColliders()
