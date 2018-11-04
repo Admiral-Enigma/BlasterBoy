@@ -13,9 +13,6 @@ local map
 local player
 
 
--- Debug vars
-local drawCol = true
-
 function love.load() 
     love.graphics.setDefaultFilter('nearest', 'nearest', 0)
     
@@ -43,15 +40,17 @@ function love.draw()
     Globals.Camera:attach()
     love.graphics.scale(Globals.scale, Globals.scale)
 
-    if drawCol then
-        map:drawColliders()
-    end
 
     map:drawMap()
+    
+    if Globals.debug then map:drawDebugging() end
+
     Globals.EntityFactory:draw()
     player:draw()
     Globals.Camera:detach()
-    if drawCol then drawDebug() end
+
+    -- Debugging UI
+    if Globals.debug then drawDebug() end
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
@@ -67,7 +66,7 @@ function love.keypressed( key, scancode, isrepeat )
 
     -- DEBUG
     if key == "p" then
-        drawCol = not drawCol
+        Globals.debug = not Globals.debug
     end
 
     if key == "escape" then
