@@ -35,6 +35,9 @@ function EntityFactory:draw()
 end
 
 function EntityFactory:clear()
+    for k,v in ipairs(self.pool) do 
+        world:remove(v)
+    end
     self.pool = {}
 end
 
