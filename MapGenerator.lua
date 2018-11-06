@@ -76,6 +76,18 @@ function MapGenerator:generateColliders()
     end
 end
 
+local areaPattern = {
+    {0, 0, 0, 0, 0, 0, 0, 0},
+    {0, 0, 0, 1, 1, 0, 0, 0},
+    {0, 0, 1, 1, 1, 1, 0, 0},
+    {0, 0, 1, 1, 1, 1, 0, 0},
+    {0, 1, 1, 1, 1, 1, 1, 0},
+    {0, 1, 1, 1, 1, 1, 1, 0},
+    {0, 0, 0, 1, 1, 0, 0, 0},
+    {0, 0, 0, 0, 0, 0, 0, 0},
+
+}
+
 -- Squares for now
 function MapGenerator:generateAreas()
     self.areas = {}
@@ -86,8 +98,14 @@ function MapGenerator:generateAreas()
     end
 
     for _,v in ipairs(self.areas) do
-        local enemy = Globals.EntityFactory:createEntity("Enemy", v.x, v.y)
-        world:add(enemy, enemy.x, enemy.y, enemy.width, enemy.height)
+        for r, row in ipairs(areaPattern) do
+            for c, id in ipairs(row) do
+                if id == 1 then
+                    local enemy = Globals.EntityFactory:createEntity("Enemy", v.x + c * 16 - 8, v.y + r * 16 - 8)
+                    world:add(enemy, enemy.x, enemy.y, enemy.width, enemy.height)
+                end
+            end
+        end
     end
 end
 
